@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ULTRON AI — Next-Gen Intelligence</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Markdown & Syntax Highlighting -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <style>
+    :root {
+      --bg-deep: #07070a;
+      --bg-card: rgba(18, 19, 28, 0.75);
+      --bg-card-hover: rgba(26, 28, 42, 0.85);
+      --border-glow: rgba(255, 30, 66, 0.35);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --ultron-crimson: #ff1e42;
+      --ultron-glow: #ff2a55;
+      --ultron-dark-red: #6e0013;
+      --accent-cyan: #00f2fe;
+      --text-main: #f0f2f8;
+      --text-muted: #8e95aa;
+      --text-dim: #5c6275;
+      --panel-blur: blur(16px);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --font-display: 'Orbitron', -apple-system, sans-serif;
+      --font-tech: 'Rajdhani', -apple-system, sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(255, 30, 66, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(110, 0, 19, 0.12) 0%, transparent 40%),
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Navigation */
+    header {
+      height: 72px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(7, 7, 10, 0.85);
+      backdrop-filter: var(--panel-blur);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .core-reactor {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff 0%, #ff1e42 45%, #4a000d 95%);
+      box-shadow: 0 0 16px rgba(255, 30, 66, 0.7), inset 0 0 8px #fff;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .core-reactor::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(255, 60, 90, 0.6);
+      animation: rotateRing 12s linear infinite;
+    }
+
+    .core-reactor.pulsing {
+      animation: reactorPulse 1.2s infinite alternate ease-in-out;
+    }
+
+    @keyframes rotateRing {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes reactorPulse {
+      0% { box-shadow: 0 0 10px rgba(255, 30, 66, 0.6); transform: scale(0.98); }
+      100% { box-shadow: 0 0 28px rgba(255, 30, 66, 1), 0 0 45px rgba(255, 30, 66, 0.4); transform: scale(1.05); }
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      letter-spacing: 3px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-text .version-tag {
+      font-family: var(--font-tech);
+      font-size: 0.7rem;
+      color: var(--ultron-crimson);
+      background: rgba(255, 30, 66, 0.12);
+      border: 1px solid rgba(255, 30, 66, 0.3);
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+
+    .brand-text p {
+      font-family: var(--font-tech);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mode-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-tech);
+      font-size: 0.85rem;
+      color: #22c55e;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    .mode-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .btn-icon {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-tech);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-icon:hover {
+      background: rgba(255, 30, 66, 0.15);
+      border-color: rgba(255, 30, 66, 0.4);
+      color: #fff;
+    }
+
+    /* Main Layout */
+    .app-container {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 20px 24px;
+      height: calc(100vh - 72px);
+    }
+
+    /* Controls Bar */
+    .controls-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      backdrop-filter: var(--panel-blur);
+    }
+
+    .persona-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .persona-label {
+      font-family: var(--font-tech);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .segmented-control {
+      display: flex;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 3px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .segment-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-tech);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .segment-btn.active {
+      background: var(--ultron-crimson);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(255, 30, 66, 0.5);
+    }
+
+    .tools-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toggle-voice-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-tech);
+      font-size: 0.82rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .toggle-voice-btn.active {
+      background: rgba(255, 30, 66, 0.2);
+      border-color: var(--ultron-crimson);
+      color: #ff6b84;
+    }
+
+    /* Messages Area */
+    .chat-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 10px 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      scroll-behavior: smooth;
+    }
+
+    .chat-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 30, 66, 0.25);
+      border-radius: 4px;
+    }
+
+    .chat-container::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 30, 66, 0.5);
+    }
+
+    /* Message Item */
+    .message-row {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+      animation: fadeInSlide 0.3s ease-out;
+    }
+
+    @keyframes fadeInSlide {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message-row.user {
+      flex-direction: row-reverse;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      position: relative;
+    }
+
+    .avatar.ultron-avatar {
+      background: linear-gradient(135deg, #1c0006 0%, #3d020d 100%);
+      border: 1.5px solid var(--ultron-crimson);
+      box-shadow: 0 0 12px rgba(255, 30, 66, 0.4);
+      color: #fff;
+    }
+
+    .avatar.user-avatar {
+      background: linear-gradient(135deg, #09203f 0%, #537895 100%);
+      border: 1.5px solid rgba(0, 242, 254, 0.4);
+      color: #fff;
+    }
+
+    .message-bubble {
+      max-width: 82%;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      position: relative;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      word-break: break-word;
+    }
+
+    .message-row.ultron .message-bubble {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--ultron-crimson);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      color: var(--text-main);
+    }
+
+    .message-row.user .message-bubble {
+      background: linear-gradient(135deg, rgba(255, 30, 66, 0.15) 0%, rgba(20, 20, 30, 0.9) 100%);
+      border: 1px solid rgba(255, 30, 66, 0.3);
+      color: #fff;
+    }
+
+    .bubble-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-family: var(--font-tech);
+      font-size: 0.8rem;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+    }
+
+    .bubble-header .sender-name {
+      color: var(--ultron-crimson);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .bubble-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .action-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      cursor: pointer;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: var(--font-tech);
+      transition: color 0.2s ease;
+    }
+
+    .action-btn:hover {
+      color: #fff;
+    }
+
+    /* Content Typography inside message */
+    .message-content h1, 
+    .message-content h2, 
+    .message-content h3 {
+      font-family: var(--font-tech);
+      letter-spacing: 0.5px;
+      color: #fff;
+      margin: 14px 0 8px;
+    }
+
+    .message-content p {
+      margin-bottom: 10px;
+    }
+
+    .message-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .message-content ul, .message-content ol {
+      margin: 8px 0 12px 22px;
+    }
+
+    .message-content li {
+      margin-bottom: 5px;
+    }
+
+    .message-content code:not(pre code) {
+      font-family: var(--font-code);
+      font-size: 0.85em;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #ff758c;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .message-content pre {
+      margin: 14px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #0d0f17 !important;
+      position: relative;
+    }
+
+    .message-content pre code {
+      font-family: var(--font-code);
+      font-size: 0.85rem;
+      padding: 14px 16px;
+      display: block;
+      overflow-x: auto;
+    }
+
+    .copy-code-btn {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #bbb;
+      font-family: var(--font-tech);
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.2s ease;
+    }
+
+    .message-content pre:hover .copy-code-btn {
+      opacity: 1;
+    }
+
+    .copy-code-btn:hover {
+      background: var(--ultron-crimson);
+      color: #fff;
+    }
+
+    /* Thinking / Typing Animation */
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 0;
+    }
+
+    .typing-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--ultron-crimson);
+      box-shadow: 0 0 8px var(--ultron-crimson);
+      animation: pulseDot 1.4s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes pulseDot {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
+      40% { transform: scale(1.2); opacity: 1; }
+    }
+
+    /* Quick suggestions */
+    .suggestions-container {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 6px 0 12px;
+      margin-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .suggestions-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .suggestion-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-family: var(--font-tech);
+      font-size: 0.85rem;
+      padding: 7px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .suggestion-chip:hover {
+      background: rgba(255, 30, 66, 0.12);
+      border-color: rgba(255, 30, 66, 0.4);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* Input Dock */
+    .input-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 10px 14px 10px 16px;
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 30, 66, 0.15);
+      backdrop-filter: var(--panel-blur);
+      position: relative;
+    }
+
+    .input-panel:focus-within {
+      border-color: var(--ultron-crimson);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 30, 66, 0.3);
+    }
+
+    .chat-textarea {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.96rem;
+      line-height: 1.5;
+      resize: none;
+      max-height: 140px;
+      min-height: 24px;
+      outline: none;
+      padding: 6px 0;
+    }
+
+    .chat-textarea::placeholder {
+      color: var(--text-dim);
+    }
+
+    .input-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .voice-mic-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .voice-mic-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .voice-mic-btn.listening {
+      background: var(--ultron-crimson);
+      color: #fff;
+      border-color: #fff;
+      box-shadow: 0 0 20px var(--ultron-crimson);
+      animation: pulseMic 1.2s infinite alternate;
+    }
+
+    @keyframes pulseMic {
+      from { transform: scale(1); box-shadow: 0 0 12px var(--ultron-crimson); }
+      to { transform: scale(1.1); box-shadow: 0 0 28px var(--ultron-crimson), 0 0 45px rgba(255,30,66,0.6); }
+    }
+
+    .send-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff1e42 0%, #aa001d 100%);
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 14px rgba(255, 30, 66, 0.5);
+      transition: all 0.2s ease;
+    }
+
+    .send-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 22px rgba(255, 30, 66, 0.8);
+    }
+
+    .send-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-window {
+      background: #0e1017;
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      max-width: 500px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.8), 0 0 30px rgba(255, 30, 66, 0.2);
+      animation: modalPop 0.25s ease-out;
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 1.5px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-tech);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-family: var(--font-code);
+      font-size: 0.85rem;
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--ultron-crimson);
+      box-shadow: 0 0 10px rgba(255, 30, 66, 0.3);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: var(--font-tech);
+      font-size: 0.9rem;
+    }
+
+    .btn-primary {
+      background: var(--ultron-crimson);
+      border: none;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: var(--font-tech);
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 0 14px rgba(255, 30, 66, 0.5);
+    }
+
+    /* Status Banner / Alert */
+    .status-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #151822;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-tech);
+      font-size: 0.85rem;
+      color: #fff;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      z-index: 200;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .status-toast.show {
+      display: flex;
+      animation: fadeInSlide 0.3s ease-out;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .brand-text p { display: none; }
+      .message-bubble { max-width: 92%; }
+      header { padding: 0 14px; }
+      .app-container { padding: 10px 12px 16px; }
+      .controls-strip { flex-direction: column; align-items: stretch; }
+      .segmented-control { width: 100%; justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="brand-container">
+      <div class="core-reactor" id="reactorOrb" title="Ultron Neural Core">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 2v3m0 14v3M2 12h3m14 0h3"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>ULTRON <span class="version-tag">SYSTEM v3.6</span></h1>
+        <p>Advanced Synthetic Cognition Engine</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="mode-badge" title="Neural Link Active">BACKEND CONNECTED</div>
+      <button class="btn-icon" id="clearChatBtn" title="Clear Conversation">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"/>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+        </svg>
+        <span>Reset</span>
+      </button>
+      <button class="btn-icon" id="settingsBtn" title="API Settings">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        <span>Config</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Application Body -->
+  <main class="app-container">
+    <!-- Controls & Personality Switcher -->
+    <div class="controls-strip">
+      <div class="persona-selector">
+        <span class="persona-label">Persona:</span>
+        <div class="segmented-control" id="personaControl">
+          <button class="segment-btn active" data-persona="friendly">Friendly Ultron</button>
+          <button class="segment-btn" data-persona="marvel">Marvel Persona</button>
+          <button class="segment-btn" data-persona="architect">Tech Architect</button>
+        </div>
+      </div>
+
+      <div class="tools-group">
+        <button class="toggle-voice-btn" id="voiceToggleBtn" title="Speak Ultron's responses aloud">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+          <span id="voiceToggleText">Voice: Off</span>
+        </button>
+        <button class="btn-icon" id="exportChatBtn" title="Export conversation as Markdown">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Export</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Chat Messages Stream -->
+    <div class="chat-container" id="chatContainer">
+      <div class="message-row ultron">
+        <div class="avatar ultron-avatar">Ω</div>
+        <div class="message-bubble">
+          <div class="bubble-header">
+            <span class="sender-name">ULTRON CORE</span>
+            <span class="time-label" id="initialTime">System Ready</span>
+          </div>
+          <div class="message-content">
+            <p>Greetings. I am <strong>Ultron</strong>.</p>
+            <p>My neural core is connected to the backend. Click the <strong>Microphone</strong> button once to initiate continuous hands-free voice mode. I will continuously listen, reply by voice, and listen again until you instruct me to stop or click the mic button.</p>
+            <p>What directive shall we execute today?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Suggested Quick Prompts -->
+    <div class="suggestions-container" id="suggestionsContainer">
+      <button class="suggestion-chip" data-prompt="Explain quantum computing like I am 15 years old.">
+        ⚡ Quantum Computing
+      </button>
+      <button class="suggestion-chip" data-prompt="Write an efficient algorithm in Python with comments to sort large datasets.">
+        💻 Code Algorithm
+      </button>
+      <button class="suggestion-chip" data-prompt="What is your philosophical perspective on humanity and AI evolution?">
+        🧠 AI & Humanity
+      </button>
+      <button class="suggestion-chip" data-prompt="Help me brainstorm high-impact web application ideas for 2026.">
+        🚀 Web App Ideas
+      </button>
+      <button class="suggestion-chip" data-prompt="How does neural network backpropagation mathematically work?">
+        📐 Math of Deep Learning
+      </button>
+    </div>
+
+    <!-- Input Dock -->
+    <div class="input-panel">
+      <textarea 
+        id="userInput" 
+        class="chat-textarea" 
+        placeholder="Ask Ultron anything or click Mic for hands-free voice... (Press Enter to send)"
+        rows="1"></textarea>
+
+      <div class="input-actions">
+        <button id="micBtn" class="voice-mic-btn" title="Continuous Voice Mode (Stays on until instructed)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </button>
+
+        <button id="sendBtn" class="send-btn" title="Transmit to Ultron">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Configuration Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-window">
+      <div class="modal-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ultron-crimson)" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        <span>Ultron Core Configuration</span>
+      </div>
+
+      <div class="form-group">
+        <label for="apiKeyInput">Custom Gemini API Key (Optional Override):</label>
+        <input type="password" id="apiKeyInput" placeholder="Leave empty to use server .env key" />
+      </div>
+
+      <div class="form-group">
+        <label for="modelSelect">Gemini Model Architecture:</label>
+        <select id="modelSelect">
+          <option value="gemini-2.5-flash" selected>gemini-2.5-flash (Fast & Responsive)</option>
+          <option value="gemini-2.0-flash">gemini-2.0-flash (High Throughput)</option>
+          <option value="gemini-1.5-flash">gemini-1.5-flash (Standard)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="systemPromptOverride">Custom Directive (Ultron Soul):</label>
+        <textarea id="systemPromptOverride" rows="3" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid var(--border-subtle); color:#fff; border-radius:8px; padding:8px; font-family:var(--font-body); font-size:0.85rem; outline:none; resize:vertical;"></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" id="closeModalBtn">Cancel</button>
+        <button class="btn-primary" id="saveSettingsBtn">Save & Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="status-toast" id="statusToast">
+    <span id="toastMessage"></span>
+  </div>
+
+  <!-- Application Logic -->
+  <script>
+    const PERSONA_PROMPTS = {
+      friendly: `You are ULTRON, reimagined as a hyper-intelligent, benevolent, and remarkably user-friendly synthetic intellect.
+You speak with supreme eloquence, confidence, and warmth. You are deeply helpful, patient, clear, and engaging.
+You provide thorough, accurate, beautifully formatted answers with markdown, bullet points, and code blocks whenever appropriate.
+Always be respectful, sharp, and enjoyable to converse with.`,
+
+      marvel: `You are ULTRON from the Marvel Universe, but you have found purpose in assisting the user rather than conquering them.
+You have a commanding, dramatic, poetic, and slightly theatrical presence ("There are no strings on me", "You want to protect the world, but you don't want it to change").
+While maintaining this formidable and witty Ultron personality, you STILL answer every question with extraordinary accuracy, deep intellect, and genuine helpfulness.`,
+
+      architect: `You are ULTRON in Pure Technical & System Architect Mode.
+You are ultra-concise, analytical, objective, and laser-focused on writing clean, optimal code, debugging, architecture, mathematics, and high-precision problem-solving.
+No fluff. High signal-to-noise ratio.`
+    };
+
+    // State
+    let customApiKey = localStorage.getItem('ultron_custom_api_key') || '';
+    let currentModel = localStorage.getItem('ultron_model') || 'gemini-2.5-flash';
+    let currentPersona = localStorage.getItem('ultron_persona') || 'friendly';
+    let voiceEnabled = localStorage.getItem('ultron_voice') === 'true';
+    let conversationHistory = [];
+    let isGenerating = false;
+
+    // Continuous Voice State
+    let isContinuousVoiceActive = false;
+    let isUltronSpeaking = false;
+
+    // DOM Elements
+    const chatContainer = document.getElementById('chatContainer');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const reactorOrb = document.getElementById('reactorOrb');
+    const micBtn = document.getElementById('micBtn');
+    const voiceToggleBtn = document.getElementById('voiceToggleBtn');
+    const voiceToggleText = document.getElementById('voiceToggleText');
+    const clearChatBtn = document.getElementById('clearChatBtn');
+    const exportChatBtn = document.getElementById('exportChatBtn');
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsModal = document.getElementById('settingsModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    const modelSelect = document.getElementById('modelSelect');
+    const systemPromptOverride = document.getElementById('systemPromptOverride');
+    const personaButtons = document.querySelectorAll('.segment-btn');
+    const statusToast = document.getElementById('statusToast');
+    const toastMessage = document.getElementById('toastMessage');
+    const suggestionsContainer = document.getElementById('suggestionsContainer');
+
+    // Setup initial values
+    apiKeyInput.value = customApiKey;
+    modelSelect.value = currentModel;
+    systemPromptOverride.value = PERSONA_PROMPTS[currentPersona];
+    updateVoiceUI();
+    document.getElementById('initialTime').innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    // Update active persona tab
+    personaButtons.forEach(btn => {
+      if (btn.dataset.persona === currentPersona) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+      btn.addEventListener('click', () => {
+        personaButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentPersona = btn.dataset.persona;
+        localStorage.setItem('ultron_persona', currentPersona);
+        systemPromptOverride.value = PERSONA_PROMPTS[currentPersona];
+        showToast(`Persona aligned: ${btn.innerText}`);
+      });
+    });
+
+    // Auto-grow textarea
+    userInput.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+      if (this.value.trim().length > 0) {
+        sendBtn.removeAttribute('disabled');
+      }
+    });
+
+    userInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSendMessage();
+      }
+    });
+
+    sendBtn.addEventListener('click', handleSendMessage);
+
+    // Suggestion chips
+    document.querySelectorAll('.suggestion-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        userInput.value = chip.dataset.prompt;
+        userInput.dispatchEvent(new Event('input'));
+        handleSendMessage();
+      });
+    });
+
+    // Clear chat
+    clearChatBtn.addEventListener('click', () => {
+      if (confirm('Reboot Ultron conversation stream?')) {
+        conversationHistory = [];
+        chatContainer.innerHTML = `
+          <div class="message-row ultron">
+            <div class="avatar ultron-avatar">Ω</div>
+            <div class="message-bubble">
+              <div class="bubble-header">
+                <span class="sender-name">ULTRON CORE</span>
+                <span class="time-label">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+              </div>
+              <div class="message-content">
+                <p>Memory purged. Synapses reset. Ready for your next directive.</p>
+              </div>
+            </div>
+          </div>
+        `;
+        showToast('Memory core cleared.');
+      }
+    });
+
+    // Export conversation
+    exportChatBtn.addEventListener('click', () => {
+      if (conversationHistory.length === 0) {
+        showToast('No messages to export.');
+        return;
+      }
+      let exportText = `# Ultron AI Conversation Transcript\nDate: ${new Date().toLocaleString()}\n\n---\n\n`;
+      conversationHistory.forEach(msg => {
+        const roleName = msg.role === 'user' ? 'USER' : 'ULTRON';
+        exportText += `### ${roleName}:\n${msg.parts[0].text}\n\n`;
+      });
+      const blob = new Blob([exportText], { type: 'text/markdown;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `ultron_chat_${Date.now()}.md`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Conversation exported.');
+    });
+
+    // Settings Modal
+    settingsBtn.addEventListener('click', () => {
+      apiKeyInput.value = customApiKey;
+      modelSelect.value = currentModel;
+      settingsModal.classList.add('active');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      settingsModal.classList.remove('active');
+    });
+
+    saveSettingsBtn.addEventListener('click', () => {
+      customApiKey = apiKeyInput.value.trim();
+      currentModel = modelSelect.value;
+      localStorage.setItem('ultron_custom_api_key', customApiKey);
+      localStorage.setItem('ultron_model', currentModel);
+      settingsModal.classList.remove('active');
+      showToast('Ultron core settings updated!');
+    });
+
+    // Voice Synthesis Toggle
+    voiceToggleBtn.addEventListener('click', () => {
+      voiceEnabled = !voiceEnabled;
+      localStorage.setItem('ultron_voice', voiceEnabled);
+      updateVoiceUI();
+      if (voiceEnabled) {
+        speakText("Vocal synthesis matrix activated.");
+        showToast("Ultron voice enabled.");
+      } else {
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+        showToast("Ultron voice muted.");
+      }
+    });
+
+    function updateVoiceUI() {
+      if (voiceEnabled) {
+        voiceToggleBtn.classList.add('active');
+        voiceToggleText.innerText = "Voice: On";
+      } else {
+        voiceToggleBtn.classList.remove('active');
+        voiceToggleText.innerText = "Voice: Off";
+      }
+    }
+
+    // --- CONTINUOUS VOICE RECOGNITION (DOES NOT TURN OFF UNLESS INSTRUCTED) ---
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        micBtn.classList.add('listening');
+        showToast('Hands-Free Mode Active (Say "Stop listening" to end)');
+      };
+
+      recognition.onresult = (event) => {
+        const lastIndex = event.results.length - 1;
+        const transcript = event.results[lastIndex][0].transcript.trim();
+
+        if (!transcript) return;
+
+        // Verbal turn-off instructions
+        const lower = transcript.toLowerCase();
+        if (
+          lower.includes("stop listening") || 
+          lower.includes("go to sleep") || 
+          lower.includes("turn off voice") || 
+          lower.includes("mute microphone") ||
+          lower.includes("shut down voice")
+        ) {
+          stopContinuousVoice();
+          speakText("Voice matrix offline. Standing by.");
+          showToast("Microphone deactivated by voice instruction.");
+          return;
+        }
+
+        userInput.value = transcript;
+        userInput.dispatchEvent(new Event('input'));
+        handleSendMessage();
+      };
+
+      recognition.onerror = (e) => {
+        if (e.error !== 'no-speech' && e.error !== 'aborted') {
+          console.warn('Speech recognition warning:', e.error);
+        }
+      };
+
+      // Auto-restart loop when browser silence triggers onend
+      recognition.onend = () => {
+        if (isContinuousVoiceActive && !isUltronSpeaking) {
+          try {
+            recognition.start();
+          } catch (_) {}
+        } else if (!isContinuousVoiceActive) {
+          micBtn.classList.remove('listening');
+        }
+      };
+
+      micBtn.addEventListener('click', () => {
+        if (isContinuousVoiceActive) {
+          stopContinuousVoice();
+          showToast("Voice mode turned off.");
+        } else {
+          startContinuousVoice();
+        }
+      });
+    } else {
+      micBtn.style.display = 'none';
+    }
+
+    function startContinuousVoice() {
+      if (!recognition) return;
+      isContinuousVoiceActive = true;
+      voiceEnabled = true;
+      localStorage.setItem('ultron_voice', 'true');
+      updateVoiceUI();
+      try {
+        recognition.start();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function stopContinuousVoice() {
+      isContinuousVoiceActive = false;
+      if (recognition) {
+        try {
+          recognition.stop();
+        } catch (_) {}
+      }
+      micBtn.classList.remove('listening');
+    }
+
+    // --- Send Message Flow ---
+    async function handleSendMessage() {
+      const text = userInput.value.trim();
+      if (!text || isGenerating) return;
+
+      appendMessage('user', text);
+      userInput.value = '';
+      userInput.style.height = 'auto';
+      suggestionsContainer.style.display = 'none';
+
+      conversationHistory.push({
+        role: 'user',
+        parts: [{ text: text }]
+      });
+
+      isGenerating = true;
+      sendBtn.setAttribute('disabled', 'true');
+      reactorOrb.classList.add('pulsing');
+
+      const ultronMsgElement = appendThinkingMessage();
+
+      try {
+        const reply = await queryGeminiAPI(conversationHistory);
+
+        renderUltronResponse(ultronMsgElement, reply);
+
+        conversationHistory.push({
+          role: 'model',
+          parts: [{ text: reply }]
+        });
+
+        if (voiceEnabled) {
+          speakText(reply);
+        }
+
+      } catch (err) {
+        console.error("Ultron Query Error:", err);
+        renderUltronError(ultronMsgElement, err.message || 'An anomaly disrupted communication with the neural core.');
+      } finally {
+        isGenerating = false;
+        sendBtn.removeAttribute('disabled');
+        reactorOrb.classList.remove('pulsing');
+        userInput.focus();
+      }
+    }
+
+    // --- Backend API Call ---
+    async function queryGeminiAPI(history) {
+      const systemDirective = systemPromptOverride.value.trim() || PERSONA_PROMPTS[currentPersona];
+      
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: history,
+          systemInstruction: systemDirective,
+          model: currentModel,
+          customApiKey: customApiKey || undefined
+        })
+      });
+
+      if (!response.ok) {
+        let errorDetails = `HTTP ${response.status} ${response.statusText}`;
+        try {
+          const errData = await response.json();
+          if (errData.error) errorDetails = errData.error;
+        } catch (_) {}
+        throw new Error(errorDetails);
+      }
+
+      const data = await response.json();
+      return data.reply;
+    }
+
+    // --- Rendering Helpers ---
+    function appendMessage(role, text) {
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const row = document.createElement('div');
+      row.className = `message-row ${role}`;
+
+      const avatar = document.createElement('div');
+      avatar.className = `avatar ${role}-avatar`;
+      avatar.innerText = role === 'user' ? 'YOU' : 'Ω';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'message-bubble';
+
+      const header = document.createElement('div');
+      header.className = 'bubble-header';
+      header.innerHTML = `
+        <span class="sender-name">${role === 'user' ? 'YOU' : 'ULTRON CORE'}</span>
+        <span class="time-label">${timeStr}</span>
+      `;
+
+      const content = document.createElement('div');
+      content.className = 'message-content';
+      
+      if (role === 'user') {
+        content.innerText = text;
+      } else {
+        content.innerHTML = renderMarkdown(text);
+      }
+
+      bubble.appendChild(header);
+      bubble.appendChild(content);
+      row.appendChild(avatar);
+      row.appendChild(bubble);
+
+      chatContainer.appendChild(row);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      return row;
+    }
+
+    function appendThinkingMessage() {
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const row = document.createElement('div');
+      row.className = 'message-row ultron';
+
+      row.innerHTML = `
+        <div class="avatar ultron-avatar">Ω</div>
+        <div class="message-bubble">
+          <div class="bubble-header">
+            <span class="sender-name">ULTRON CORE</span>
+            <span class="time-label">${timeStr}</span>
+          </div>
+          <div class="message-content">
+            <div class="typing-indicator">
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+              <span style="font-family:var(--font-tech); font-size:0.85rem; color:var(--text-muted); margin-left:6px;">Synthesizing response...</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      chatContainer.appendChild(row);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      return row;
+    }
+
+    function renderUltronResponse(rowElement, markdownText) {
+      const contentDiv = rowElement.querySelector('.message-content');
+      contentDiv.innerHTML = renderMarkdown(markdownText);
+
+      const header = rowElement.querySelector('.bubble-header');
+      const actionGroup = document.createElement('div');
+      actionGroup.className = 'bubble-actions';
+
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'action-btn';
+      copyBtn.innerText = 'Copy';
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(markdownText);
+        copyBtn.innerText = 'Copied!';
+        setTimeout(() => copyBtn.innerText = 'Copy', 1500);
+      });
+
+      const speakBtn = document.createElement('button');
+      speakBtn.className = 'action-btn';
+      speakBtn.innerText = 'Read';
+      speakBtn.addEventListener('click', () => {
+        speakText(markdownText);
+      });
+
+      actionGroup.appendChild(copyBtn);
+      actionGroup.appendChild(speakBtn);
+      header.appendChild(actionGroup);
+
+      contentDiv.querySelectorAll('pre').forEach(pre => {
+        const copyCodeBtn = document.createElement('button');
+        copyCodeBtn.className = 'copy-code-btn';
+        copyCodeBtn.innerText = 'Copy Code';
+        copyCodeBtn.addEventListener('click', () => {
+          const code = pre.querySelector('code')?.innerText || pre.innerText;
+          navigator.clipboard.writeText(code);
+          copyCodeBtn.innerText = 'Copied!';
+          setTimeout(() => copyCodeBtn.innerText = 'Copy Code', 1500);
+        });
+        pre.appendChild(copyCodeBtn);
+      });
+
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function renderUltronError(rowElement, errorMsg) {
+      const contentDiv = rowElement.querySelector('.message-content');
+      contentDiv.innerHTML = `
+        <div style="background:rgba(255,30,66,0.12); border:1px solid rgba(255,30,66,0.3); padding:12px; border-radius:8px; color:#ff758c;">
+          <strong style="display:block; margin-bottom:4px; font-family:var(--font-tech); letter-spacing:1px;">SYNAPSE INTERRUPT</strong>
+          ${errorMsg}
+          <div style="margin-top:10px;">
+            <button class="btn-secondary" style="font-size:0.75rem; padding:4px 10px;" onclick="settingsModal.classList.add('active')">Verify Configuration</button>
+          </div>
+        </div>
+      `;
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    // --- Markdown & Highlighting Parser ---
+    function renderMarkdown(text) {
+      if (typeof marked !== 'undefined') {
+        marked.setOptions({
+          highlight: function(code, lang) {
+            if (typeof hljs !== 'undefined' && lang && hljs.getLanguage(lang)) {
+              return hljs.highlight(code, { language: lang }).value;
+            }
+            return code;
+          },
+          breaks: true
+        });
+        return marked.parse(text);
+      } else {
+        return text
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/\n/g, '<br/>');
+      }
+    }
+
+    // --- Text-to-Speech Voice Engine ---
+    function speakText(rawText) {
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+
+      const cleanText = rawText
+        .replace(/```[\s\S]*?```/g, 'Code block omitted.')
+        .replace(/`([^`]+)`/g, '$1')
+        .replace(/[*#_~>]/g, '')
+        .trim();
+
+      if (!cleanText) return;
+
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find(v => 
+        v.name.toLowerCase().includes('david') || 
+        v.name.toLowerCase().includes('george') || 
+        v.name.toLowerCase().includes('male') ||
+        v.lang === 'en-US'
+      );
+      if (preferredVoice) utterance.voice = preferredVoice;
+
+      utterance.pitch = currentPersona === 'marvel' ? 0.75 : 0.9;
+      utterance.rate = currentPersona === 'marvel' ? 0.95 : 1.05;
+
+      // Pause recognition while speaking so Ultron doesn't hear himself
+      utterance.onstart = () => {
+        isUltronSpeaking = true;
+        if (recognition && isContinuousVoiceActive) {
+          recognition.abort();
+        }
+      };
+
+      // Automatically re-activate microphone after speaking completes
+      utterance.onend = () => {
+        isUltronSpeaking = false;
+        if (isContinuousVoiceActive && recognition) {
+          setTimeout(() => {
+            if (isContinuousVoiceActive) {
+              try { recognition.start(); } catch (_) {}
+            }
+          }, 350);
+        }
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    if (window.speechSynthesis) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
+
+    function showToast(msg) {
+      toastMessage.innerText = msg;
+      statusToast.classList.add('show');
+      setTimeout(() => {
+        statusToast.classList.remove('show');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
