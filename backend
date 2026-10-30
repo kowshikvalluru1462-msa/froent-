@@ -1,0 +1,88 @@
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.post('/api/chat', async (req, res) => {
+  try {
+    const { messages, systemInstruction, model, customApiKey } = req.body;
+    const apiKey = customApiKey || process.env.GEMINI_API_KEY;
+
+    if (!apiKey) {
+      return res.status(400).json({ error: 'API key is missing. Configure it in .env or settings.' });
+    }
+
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ error: 'Messages array is required.' });
+    }
+
+    const selectedModel = model || 'gemini-2.5-flash';
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`;
+
+    const requestBody = {
+      system_instruction: {
+        parts: [{ text: systemInstruction || "You are ULTRON, a powerful and articulate synthetic intelligence." }]
+      },
+      contents: messages.map(item => ({
+        role: item.role === 'model' ? 'model' : 'user',
+        parts: item.parts || [{ text: item.content || '' }]
+      })),
+      generationConfig: {
+        temperature: 0.75,
+        topP: 0.95,
+        maxOutputTokens: 3000
+      }
+    };
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestBody)
+    });
+
+    if (!response.ok) {
+      let errorDetails = `HTTP ${response.status} ${response.statusText}`;
+      try {
+        const errData = await response.json();
+        if (errData.error && errData.error.message) {
+          errorDetails = errData.error.message;
+        }
+      } catch (_) {}
+      return res.status(response.status).json({ error: errorDetails });
+    }
+
+    const data = await response.json();
+    if (
+      data.candidates &&
+      data.candidates[0] &&
+      data.candidates[0].content &&
+      data.candidates[0].content.parts &&
+      data.candidates[0].content.parts[0]
+    ) {
+      return res.json({ reply: data.candidates[0].content.parts[0].text });
+    } else {
+      return res.status(500).json({ error: 'Ultron core returned an empty synthesis response.' });
+    }
+  } catch (error) {
+    console.error('Ultron Server Error:', error);
+    res.status(500).json({ error: error.message || 'Internal neural core failure.' });
+  }
+});
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ONLINE', core: 'ULTRON v3.6' });
+});
+
+app.listen(port, () => {
+  console.log(`===============================================`);
+  console.log(`[ULTRON AI NEURAL CORE] ONLINE`);
+  console.log(`Local Access: http://localhost:${port}`);
+  console.log(`===============================================`);
+});
